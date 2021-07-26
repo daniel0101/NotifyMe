@@ -14,7 +14,7 @@ class SubscribeService
 
     public function subscribe(){
         return Redis::subscribe([$this->topic], function($message){
-            echo $message;
+            return $message;
         });
     }
 }
