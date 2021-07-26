@@ -31,37 +31,6 @@ Route::post('/subscribe/{topic}',function($topicParam){
     // get subscriber - url
     $subscriberUrl = request()->url;
 
-    //persist topic if not exist
-    $topic = Topic::where('name',$topicParam)->first();
-
-    $subscriber = Subscriber::where('url',$subscriberUrl)->first();
-
-    if(!$topic){
-        $topic = Topic::create([
-            'name' => $topicParam
-        ]);
-    }
-
-    //persist subscriber
-    if(!$subscriber){
-        $subscriber = Subscriber::create([
-            'url' => $subscriberUrl
-        ]);
-    }
-
-    
-    // subscribe to topic
-    // (new SubscribeService($topicParam))->subscribe();
-
-    //persist subscriber with topic
-    $subscribedTopic = TopicSubscriber::where(['topic_id' => $topic->id, 'subscriber_id' => $subscriber->id])->first();
-    if(!$subscribedTopic){
-        TopicSubscriber::create([
-            'topic_id' => $topic->id,
-            'subscriber_id' => $subscriber->id
-        ]);
-    }
-
     //save url topic in redis
     Redis::set(base64_encode($subscriberUrl),$topicParam);
 
