@@ -30,11 +30,12 @@ laravel dependency packages
     composer install
 ```
 Node 
-`` `sh
+```sh
     npm install
 ```
 
 ### Running Project
+
 Start up the NotifyMe Laravel server using:
 ```sh
     php artisan serve
