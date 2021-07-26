@@ -42,7 +42,7 @@ Start up the NotifyMe Laravel server using:
 ```
 it runs on `localhost:8000` if port `8000` is available
 
-Start up Node server by:
+Start up Node Socket server by:
 ```sh
     node server.js
 ```
