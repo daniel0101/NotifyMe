@@ -5,14 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topic</title>
+    <style>
+        body{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: rgb(253, 253, 253);
+        }
+        .container-fluid{
+            padding-left: 3rem;
+            padding-right: 3rem;
+            padding-top: 1rem;
+        }
+
+        .topics{
+            display: flex;
+        }
+
+        .card{
+           margin-left: 1rem; 
+           margin-right: 1rem; 
+        }
+
+        .card-title{
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .description {
+            color: rgb(109, 109, 109);
+            line-height: 1.3rem;
+        }
+
+        .author{
+            color: #000;
+        }
+        
+        .badge {
+            padding: 1px 5px;
+            font-size: 70%;
+            border-radius: 5px;
+        }
+
+        .badge-new{
+            background-color: #dc2166;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
+        <div class="header">
+            <h2><%= topic %></h2>
+        </div>
         <div class="topics">
             <div class="card">
-                <div class="title">
-                    <h4>Title goes here</h4>
-                </div>
+                <h4 class="card-title">Title goes here</h4>
+                <p class="description">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente qui placeat sequi enim perferendis, maiores laboriosam delectus, culpa veritatis ad, quis atque ea sunt tenetur reprehenderit hic cumque labore obcaecati.
+                </p>
+                <p class="footer">
+                    <span class="author">by Jackie Moon</span>
+                </p>
             </div>
         </div>
     </div>
@@ -21,7 +73,22 @@
         var sock = io("localhost:9000");
         const channel = "<%= channel %>";
         sock.on(channel, function (data){
-            alert(`New Topic Alert: ${data.topic}`);
+            console.log(`New Topic Alert: ${data.topic}`);
+
+            const html = `
+                <div class="card">
+                    <h4 class="card-title">${data.data.title} <span class="badge badge-new">new</span></h4>
+                    <p class="description">
+                        ${data.data.content}
+                    </p>
+                    <p class="footer">
+                        <span class="author">by ${data.data.author}</span>
+                    </p>
+                </div>
+            `;
+            //append to 
+            const topicsContainer = document.querySelector('.topics');
+            topicsContainer.insertAdjacentHTML('beforeend',html);
         });
     </script>
 </body>
