@@ -33,7 +33,6 @@ app.get("/:state", async (req, res) => {
 redis.psubscribe('*');
 redis.on('pmessage', function (pattern,channel, message) {
   message  = JSON.parse(message);
-
   // emit message on this channel
   io.emit(channel, message.data);
 });
